@@ -2,9 +2,9 @@ package PO;
 
 import java.io.Serializable;
 
-/*寮忕*/
+/*式神*/
 public class HERO implements Serializable {
-    private String rarity;      //绋�鏈夊害
+    private String rarity;      //稀有度
     private String name;
     private int level;
 

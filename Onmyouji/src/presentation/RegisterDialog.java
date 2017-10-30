@@ -1,167 +1,219 @@
 package presentation;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.rmi.RemoteException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import bussinessLogicService.LoginService;
 import rmi.RemoteHelper;
 
-public class RegisterDialog {
+public class RegisterDialog extends JDialog{
 	private JLabel label1 = new JLabel();
-	private JLabel labelid = new JLabel();
-	private JLabel labelpwd = new JLabel();
-	private JLabel labelpwd2 = new JLabel();
-	private JDialog dialog = null;
+	private JLabel idwarninglabel = new JLabel();
+	private JLabel pwdwarninglabel = new JLabel();
+	private JLabel successlabel = new JLabel();
 	private JTextField idField = new JTextField("Your ID", 16);
 	private JPasswordField pwdField = new JPasswordField(16);
 	private JPasswordField pwdField2 = new JPasswordField(16);
-	private JButton handInButton = new JButton("����ע��");
+	private JButton handInButton = new JButton("现在注册");
+	private JPanel imagePanel;
+	private Icon background;
 
-	public void showDialog(JFrame father) {
+	public RegisterDialog() {
 
-		label1.setText("��ӭ��!");
-		label1.setBounds(130, 6, 200, 20);
-		labelid.setText("����˺�:");
-		labelid.setBounds(80, 66, 100, 20);
-		labelpwd.setText("����:");
-		labelpwd.setBounds(90, 126, 100, 20);
-		labelpwd2.setText("ȷ������:");
-		labelpwd2.setBounds(80, 186, 200, 20);
-		idField.setBounds(140, 66, 100, 20);
-		pwdField.setBounds(140, 126, 100, 20);
-		pwdField2.setBounds(140, 186, 100, 20);
-		handInButton.setBounds(70, 260, 160, 30);
-		handInButton.addActionListener(new regActionListener());
+		java.net.URL imgURL = this.getClass().getResource("/pictures/register.jpg");
+		background = new ImageIcon(imgURL);// 背景图片
+		JLabel label = new JLabel(background);// 把背景图片显示在一个标签里面
+		// 把标签的大小位置设置为图片刚好填充整个面板
+		label.setBounds(0, 0, background.getIconWidth(),
+				background.getIconHeight());
+		// 把内容窗格转化为JPanel，否则不能用方法setOpaque()来使内容窗格透明
+		imagePanel = (JPanel) this.getContentPane();
+		imagePanel.setOpaque(false);
+		// 内容窗格默认的布局管理器为BorderLayout
+		imagePanel.setLayout(new FlowLayout());
 
-		dialog = new JDialog(father, true);
-		dialog.setTitle("����ע��!");
-		dialog.setLayout(null);
-		dialog.add(label1);
-		dialog.add(labelid);
-		dialog.add(labelpwd);
-		dialog.add(labelpwd2);
+		this.getLayeredPane().setLayout(null);
+		// 把背景图片添加到分层窗格的最底层作为背景
+		this.getLayeredPane().add(label, new Integer(Integer.MIN_VALUE));
 
-		dialog.add(idField);
-		dialog.add(pwdField);
-		dialog.add(pwdField2);
 
-		dialog.add(handInButton);
 
-		dialog.pack();
-		dialog.setSize(new Dimension(300, 400));
-		dialog.setLocation(525, 350);
-		dialog.setVisible(true);
+		this.setSize(new Dimension(672, 378));
+		this.setLocation(624, 352);
+
+
+		label1.setText("欢迎您!");
+		label1.setBounds(310, 6, 200, 30);
+		idwarninglabel.setText("对不起，但该用户名已存在!");
+		idwarninglabel.setForeground(Color.RED);
+		idwarninglabel.setBounds(410, 66, 200, 30);
+		idwarninglabel.setVisible(false);
+
+		pwdwarninglabel.setText("对不起，两次密码不相同!");
+		pwdwarninglabel.setForeground(Color.RED);
+		pwdwarninglabel.setBounds(410, 126, 200, 30);
+		pwdwarninglabel.setVisible(false);
+
+		successlabel.setText("注册成功!");
+		successlabel.setForeground(Color.BLUE);
+		successlabel.setBounds(280, 210, 200, 30);
+		successlabel.setVisible(false);
+
+
+		idField.setBounds(280, 66, 100, 30);
+		pwdField.setBounds(280, 126, 100, 30);
+		pwdField2.setBounds(280, 186, 100, 30);
+
+		MyButton handIn = new MyButton("pictures\\mybutton1_1.jpg","pictures\\mybutton1_2.jpg","pictures\\mybutton1_3.jpg","现在注册");
+		handIn.setOpaque(false);
+		handIn.setHorizontalTextPosition(SwingConstants.CENTER);
+		handIn.setSize(128, 49);
+		handIn.setLocation(270, 260);
+		this.add(handIn);
+		handIn.setVisible(true);
+		handIn.addActionListener(new handInButtonActionListener());
+
+		//handInButton.addActionListener(new regActionListener());
+
+		this.setTitle("现在注册!");
+		this.setLayout(null);
+		this.add(label1);
+		this.add(idwarninglabel);
+		this.add(pwdwarninglabel);
+		this.add(successlabel);
+		this.add(handInButton);
+		this.setFocusable(true);
+
+		//this.pack();
+
+
+		// 文本框
+		idField.setText("你的账号");
+		idField.setForeground(Color.GRAY);
+		idField.setVisible(true);
+		idField.addFocusListener(new FocusAdapter()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if(idField.getForeground()==Color.gray) {
+					idField.setForeground(Color.BLACK);
+					idField.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+
+				if(idField.getText().equals("")){
+					idField.setForeground(Color.GRAY);
+					idField.setText("你的账号");
+				}
+
+			}
+		});
+		this.add(idField);
+
+
+		pwdField.setText("你的密码");
+		pwdField.setEchoChar((char)(0));
+		pwdField.setForeground(Color.GRAY);
+		pwdField.setVisible(true);
+		pwdField.addFocusListener(new FocusAdapter()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if(pwdField.getForeground()==Color.gray) {
+					pwdField.setEchoChar('*');
+					pwdField.setForeground(Color.BLACK);
+					pwdField.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+
+				if(pwdField.getText().equals("")){
+					pwdField.setEchoChar((char)(0));
+					pwdField.setForeground(Color.GRAY);
+					pwdField.setText("你的密码");
+				}
+
+
+			}
+		});
+		this.add(pwdField);
+
+		pwdField2.setText("请重复输入密码");
+		pwdField2.setEchoChar((char)(0));
+		pwdField2.setForeground(Color.GRAY);
+		pwdField2.setVisible(true);
+		pwdField2.addFocusListener(new FocusAdapter()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if(pwdField2.getForeground()==Color.gray) {
+					pwdField2.setEchoChar('*');
+					pwdField2.setForeground(Color.BLACK);
+					pwdField2.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+
+				if(pwdField2.getText().equals("")){
+					pwdField2.setEchoChar((char)(0));
+					pwdField2.setForeground(Color.GRAY);
+					pwdField2.setText("请重复输入密码");
+				}
+
+
+			}
+		});
+		this.add(pwdField2);
+
+
+
+		this.setModal(true);
+		this.setVisible(true);
 
 	}
 
-	class regActionListener implements ActionListener {
+
+	private class handInButtonActionListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			registerSuccessDialog dd = new registerSuccessDialog();
+		public void actionPerformed(ActionEvent e) {
+			idwarninglabel.setVisible(false);
+			pwdwarninglabel.setVisible(false);
 
-			if (new String(pwdField.getPassword()).equals(new String(pwdField2.getPassword()))) {
-				LoginService loginService = RemoteHelper.getInstance().getLoginService();
-				boolean regsuc = loginService.isExist(idField.getText());
-
-				if (!regsuc) {
-					dd.showDialog(0);
-				} else {
-					dd.showDialog(1);
-				}
-			} else {
-				dd.showDialog(2);
+			if(!pwdField.getText().equals(pwdField2.getText())){
+				pwdwarninglabel.setVisible(true);
+				return;
 			}
-		}
-
-	}
-
-	public class registerSuccessDialog {
-		private JLabel label1 = new JLabel();
-		private JButton OKButton = new JButton("OK");
-		private JDialog dialog2 = new JDialog(dialog, true);
-
-		public void showDialog(int i) {
-			if (i == 0) {
-				label1.setText("�˺�ע��ɹ�����������Ϣ");
-				label1.setBounds(120, 6, 200, 20);
-
-				OKButton.setBounds(120, 60, 160, 30);
-				OKButton.addActionListener(new SuccessActionListener());
-				dialog2.add(label1);
-				dialog2.add(OKButton);
-
-				dialog2.setLayout(null);
-				dialog2.pack();
-				dialog2.setSize(new Dimension(400, 160));
-				dialog2.setLocation(525, 300);
-				dialog2.setVisible(true);
-			} else {
-				if (i == 1) {
-					label1.setText("��Ǹ�����˺��Ѵ���");
-					label1.setBounds(140, 6, 280, 20);
-
-					OKButton.setBounds(120, 60, 160, 30);
-					OKButton.addActionListener(new OKActionListener());
-					dialog2.add(label1);
-					dialog2.add(OKButton);
-
-					dialog2.setLayout(null);
-					dialog2.pack();
-					dialog2.setSize(new Dimension(400, 160));
-					dialog2.setLocation(525, 300);
-					dialog2.setVisible(true);
-				} else {
-					label1.setText("��Ǹ��������������������벻һ��");
-					label1.setBounds(90, 6, 280, 20);
-
-					OKButton.setBounds(120, 60, 160, 30);
-					OKButton.addActionListener(new OKActionListener());
-					dialog2.add(label1);
-					dialog2.add(OKButton);
-
-					dialog2.setLayout(null);
-					dialog2.pack();
-					dialog2.setSize(new Dimension(400, 160));
-					dialog2.setLocation(525, 300);
-					dialog2.setVisible(true);
-				}
+			if(RemoteHelper.getInstance().getLoginService().isExist(idField.getText())){
+				idwarninglabel.setVisible(true);
+				return;
 			}
-		}
-
-		class OKActionListener implements ActionListener {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-				dialog2.dispose();
-
+			if(RemoteHelper.getInstance().getLoginService().register(idField.getText(),new String(pwdField.getPassword()))){
+				successlabel.setVisible(true);
+				new WarningDialog("注册成功!");
+				dispose();
+			}else{
+				System.out.println("出现未知错误");
 			}
-
-		}
-		
-		class SuccessActionListener implements ActionListener {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				dialog.dispose();
-				dialog2.dispose();
-
-			}
-
 		}
 	}
-
 }
+
+

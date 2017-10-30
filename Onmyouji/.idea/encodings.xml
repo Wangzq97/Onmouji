@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/presentation/LinkedUI.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/presentation/LoginUI.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/presentation/RegisterDialog.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/presentation/ui.java" charset="GBK" />
-  </component>
-</project>

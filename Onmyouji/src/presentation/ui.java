@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -16,35 +18,35 @@ import static sun.rmi.transport.TransportConstants.Call;
 
 public class ui extends JFrame implements ActionListener {
     private JPanel imagePanel;
-    private ImageIcon background;
+    private Icon background;
     private JTextField info;
-    
+
     public ui() {
-        linkToServer();
-        background = new ImageIcon("pictures\\background.jpeg");// ±³¾°Í¼Æ¬
-        JLabel label = new JLabel(background);// °Ñ±³¾°Í¼Æ¬ÏÔÊ¾ÔÚÒ»¸ö±êÇ©ÀïÃæ  
-        // °Ñ±êÇ©µÄ´óĞ¡Î»ÖÃÉèÖÃÎªÍ¼Æ¬¸ÕºÃÌî³äÕû¸öÃæ°å  
+        java.net.URL imgURL = this.getClass().getResource("/pictures/background.jpeg");
+        background = new ImageIcon(imgURL);// èƒŒæ™¯å›¾ç‰‡
+        JLabel label = new JLabel(background);// æŠŠèƒŒæ™¯å›¾ç‰‡æ˜¾ç¤ºåœ¨ä¸€ä¸ªæ ‡ç­¾é‡Œé¢
+        // æŠŠæ ‡ç­¾çš„å¤§å°ä½ç½®è®¾ç½®ä¸ºå›¾ç‰‡åˆšå¥½å¡«å……æ•´ä¸ªé¢æ¿
         label.setBounds(0, 0, background.getIconWidth(),
                 background.getIconHeight());
-        // °ÑÄÚÈİ´°¸ñ×ª»¯ÎªJPanel£¬·ñÔò²»ÄÜÓÃ·½·¨setOpaque()À´Ê¹ÄÚÈİ´°¸ñÍ¸Ã÷  
+        // æŠŠå†…å®¹çª—æ ¼è½¬åŒ–ä¸ºJPanelï¼Œå¦åˆ™ä¸èƒ½ç”¨æ–¹æ³•setOpaque()æ¥ä½¿å†…å®¹çª—æ ¼é€æ˜
         imagePanel = (JPanel) this.getContentPane();
         imagePanel.setOpaque(false);
-        // ÄÚÈİ´°¸ñÄ¬ÈÏµÄ²¼¾Ö¹ÜÀíÆ÷ÎªBorderLayout  
+        // å†…å®¹çª—æ ¼é»˜è®¤çš„å¸ƒå±€ç®¡ç†å™¨ä¸ºBorderLayout
         imagePanel.setLayout(new FlowLayout());
 
         this.getLayeredPane().setLayout(null);
-        // °Ñ±³¾°Í¼Æ¬Ìí¼Óµ½·Ö²ã´°¸ñµÄ×îµ×²ã×÷Îª±³¾°  
+        // æŠŠèƒŒæ™¯å›¾ç‰‡æ·»åŠ åˆ°åˆ†å±‚çª—æ ¼çš„æœ€åº•å±‚ä½œä¸ºèƒŒæ™¯
         this.getLayeredPane().add(label, new Integer(Integer.MIN_VALUE));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(background.getIconWidth(), background.getIconHeight());
         this.setResizable(false);
         this.setVisible(true);
 
-        ImageIcon icon=new ImageIcon("pictures\\icon.jpg"); //Í¼±ê
+        ImageIcon icon=new ImageIcon("pictures\\icon.jpg"); //å›¾æ ‡
         this.setIconImage(icon.getImage());
 
-        this.setTitle("Onmyouji");                              //´°Ìå±êÌâÏÔÊ¾
-        this.setSize(960, 540);                  //´°ÌåµÄ´óĞ¡
+        this.setTitle("Onmyouji");                              //çª—ä½“æ ‡é¢˜æ˜¾ç¤º
+        this.setSize(960, 540);                  //çª—ä½“çš„å¤§å°
         this.setLocation(480,270);
         this.setLayout(null);
 
@@ -56,19 +58,19 @@ public class ui extends JFrame implements ActionListener {
         info.setEditable(false);
         this.getContentPane().add(info);
 
-        JButton getCommon=new JButton("ÆÆËéµÄ·ûÖä");
+        JButton getCommon=new JButton("ç ´ç¢çš„ç¬¦å’’");
         getCommon.setSize(160,40);
         getCommon.setLocation(240,400);
         this.getContentPane().add(getCommon);
         getCommon.addActionListener(this);
-        getCommon.setActionCommand("ÆÆËéµÄ·ûÖä");
+        getCommon.setActionCommand("ç ´ç¢çš„ç¬¦å’’");
 
-        JButton getSpecial=new JButton("ÉñÃØµÄ·ûÖä");
+        JButton getSpecial=new JButton("ç¥ç§˜çš„ç¬¦å’’");
         getSpecial.setSize(160,40);
         getSpecial.setLocation(560,400);
         this.getContentPane().add(getSpecial);
         getSpecial.addActionListener(this);
-        getSpecial.setActionCommand("ÉñÃØµÄ·ûÖä");
+        getSpecial.setActionCommand("ç¥ç§˜çš„ç¬¦å’’");
 
 
         this.repaint();
@@ -76,7 +78,7 @@ public class ui extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("ÆÆËéµÄ·ûÖä")) {
+        if(e.getActionCommand().equals("ç ´ç¢çš„ç¬¦å’’")) {
             HERO hero =new HERO();
             try {
                 hero=RemoteHelper.getInstance().getCallService().getCommon();
@@ -86,7 +88,7 @@ public class ui extends JFrame implements ActionListener {
             info.setText(hero.getName()+" "+hero.getRarity());
         }
 
-        if(e.getActionCommand().equals("ÉñÃØµÄ·ûÖä")){
+        if(e.getActionCommand().equals("ç¥ç§˜çš„ç¬¦å’’")){
             HERO hero =new HERO();
             try {
                 hero=RemoteHelper.getInstance().getCallService().getSpecial();
@@ -99,7 +101,7 @@ public class ui extends JFrame implements ActionListener {
 
     }
 
-    private void linkToServer() {
+   /* private void linkToServer() {
         try {
             try {
                 Thread.sleep(2000);
@@ -120,5 +122,5 @@ public class ui extends JFrame implements ActionListener {
             e.printStackTrace();
 
         }
-    }
+    }*/
 }

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Onmyouji">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/Onmyouji_jar/Onmyouji.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

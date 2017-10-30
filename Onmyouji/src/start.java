@@ -5,6 +5,6 @@ import presentation.ui;
 
 public class start {
     public static void main(String[] args){
-        new ui();
+        new LoginUI();
     }
 }

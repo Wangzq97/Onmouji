@@ -7,9 +7,58 @@ public class account implements Serializable {
 
     private String id;
     private int level;
-    private int specialCharge;      //ç‰¹æ®ŠæŠ½ç¬¦æ¬¡æ•°
-    private int commonCharge;       //æ™®é€šæŠ½ç¬¦æ¬¡æ•°
-    private int existDay;           //ç™»é™†å¤©æ•°
-    private Date lastLoginDate;      //ä¸Šæ¬¡ç™»å½•æ—¥æœŸ
+    private int specialCharge;      //ÌØÊâ³é·û´ÎÊý
+    private int commonCharge;       //ÆÕÍ¨³é·û´ÎÊý
+    private int existDay;           //µÇÂ½ÌìÊý
+    private Date lastLoginDate;      //ÉÏ´ÎµÇÂ¼ÈÕÆÚ
+
+    public String getId(){
+        return id;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public int getSpecialCharge(){
+        return specialCharge;
+    }
+
+    public int getCommonCharge(){
+        return commonCharge;
+    }
+
+    public int getExistDay(){
+        return commonCharge;
+    }
+
+    public Date getLastLoginDate(){
+        return lastLoginDate;
+    }
+
+    public void setId(String newId){
+        this.id=newId;
+    }
+
+    public void setLevel(int newLevel){
+        this.level=newLevel;
+    }
+
+    public void setSpecialCharge(int newSpecialChange){
+        this.specialCharge=newSpecialChange;
+    }
+
+    public void setCommonCharge(int newCommonChange){
+        this.commonCharge=newCommonChange;
+    }
+
+    public void setExistDay(int newExistDay){
+        this.existDay=newExistDay;
+    }
+
+    public void setLastLoginDate(Date newDate){
+        this.lastLoginDate=newDate;
+    }
+
 
 }
