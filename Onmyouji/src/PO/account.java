@@ -7,10 +7,10 @@ public class account implements Serializable {
 
     private String id;
     private int level;
-    private int specialCharge;      //ÌØÊâ³é·û´ÎÊý
-    private int commonCharge;       //ÆÕÍ¨³é·û´ÎÊý
-    private int existDay;           //µÇÂ½ÌìÊý
-    private Date lastLoginDate;      //ÉÏ´ÎµÇÂ¼ÈÕÆÚ
+    private int specialCharge;      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private int commonCharge;       //ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private int existDay;           //ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½
+    private Date lastLoginDate;      //ï¿½Ï´Îµï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 
     public String getId(){
         return id;
@@ -29,7 +29,7 @@ public class account implements Serializable {
     }
 
     public int getExistDay(){
-        return commonCharge;
+        return existDay;
     }
 
     public Date getLastLoginDate(){

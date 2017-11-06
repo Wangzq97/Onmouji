@@ -1,6 +1,7 @@
 package presentation;
 
 import PO.HERO;
+import PO.account;
 import rmi.RemoteHelper;
 
 import javax.swing.*;
@@ -20,8 +21,10 @@ public class ui extends JFrame implements ActionListener {
     private JPanel imagePanel;
     private Icon background;
     private JTextField info;
+    private account accountpo;
 
-    public ui() {
+    public ui(account accountpo) {
+        this.accountpo=accountpo;
         java.net.URL imgURL = this.getClass().getResource("/pictures/background.jpeg");
         background = new ImageIcon(imgURL);// 背景图片
         JLabel label = new JLabel(background);// 把背景图片显示在一个标签里面
@@ -81,7 +84,7 @@ public class ui extends JFrame implements ActionListener {
         if(e.getActionCommand().equals("破碎的符咒")) {
             HERO hero =new HERO();
             try {
-                hero=RemoteHelper.getInstance().getCallService().getCommon();
+                hero=RemoteHelper.getInstance().getCallService().getCommon(accountpo.getId());
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
@@ -91,7 +94,7 @@ public class ui extends JFrame implements ActionListener {
         if(e.getActionCommand().equals("神秘的符咒")){
             HERO hero =new HERO();
             try {
-                hero=RemoteHelper.getInstance().getCallService().getSpecial();
+                hero=RemoteHelper.getInstance().getCallService().getSpecial(accountpo.getId());
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
@@ -100,6 +103,12 @@ public class ui extends JFrame implements ActionListener {
         }
 
     }
+
+
+    public void update(){
+
+    }
+
 
    /* private void linkToServer() {
         try {

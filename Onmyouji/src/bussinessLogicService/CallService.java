@@ -7,8 +7,8 @@ import java.rmi.RemoteException;
 
 public interface CallService extends Remote{
 
-    public HERO getCommon () throws RemoteException;
+    public HERO getCommon (String name) throws RemoteException;
 
-    public HERO getSpecial () throws RemoteException;
+    public HERO getSpecial (String name) throws RemoteException;
 
 }

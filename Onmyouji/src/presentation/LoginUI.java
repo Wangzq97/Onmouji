@@ -24,9 +24,6 @@ public class LoginUI extends JFrame {
 	// 主窗口
 	public LoginUI() {
 
-
-
-
 		LinkedUI linkui = new LinkedUI();
 
 		try {
@@ -165,7 +162,7 @@ public class LoginUI extends JFrame {
 				WarningDialog warning =new WarningDialog("用户名或密码错误");
 			} else {
 				setVisible(false);
-				ui ui=new ui();
+				ui ui=new ui(accountpo);
 			}
 		}
 
