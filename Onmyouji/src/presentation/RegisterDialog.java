@@ -72,7 +72,7 @@ public class RegisterDialog extends JDialog{
 		pwdField.setBounds(280, 126, 100, 30);
 		pwdField2.setBounds(280, 186, 100, 30);
 
-		MyButton handIn = new MyButton("pictures\\mybutton1_1.jpg","pictures\\mybutton1_2.jpg","pictures\\mybutton1_3.jpg","现在注册");
+		MyButton handIn = new MyButton("/pictures/mybutton1_1.jpg","/pictures/mybutton1_2.jpg","/pictures/mybutton1_3.jpg","现在注册");
 		handIn.setOpaque(false);
 		handIn.setHorizontalTextPosition(SwingConstants.CENTER);
 		handIn.setSize(128, 49);

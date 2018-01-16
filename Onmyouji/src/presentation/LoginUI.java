@@ -63,7 +63,7 @@ public class LoginUI extends JFrame {
 		this.setVisible(true);
 
 		// 登录按钮
-		MyButton login = new MyButton("pictures\\mybutton1_1.jpg","pictures\\mybutton1_2.jpg","pictures\\mybutton1_3.jpg","登录");
+		MyButton login = new MyButton("/pictures/mybutton1_1.jpg","/pictures/mybutton1_2.jpg","/pictures/mybutton1_3.jpg","登录");
 		login.setOpaque(false);
 		login.setHorizontalTextPosition(SwingConstants.CENTER);
 		login.setSize(128, 49);
@@ -73,7 +73,7 @@ public class LoginUI extends JFrame {
 		login.addActionListener(new LoginButtonActionListener());
 
 		// 注册按钮
-		MyButton register = new MyButton("pictures\\mybutton1_1.jpg","pictures\\mybutton1_2.jpg","pictures\\mybutton1_3.jpg","注册");
+		MyButton register = new MyButton("/pictures/mybutton1_1.jpg","/pictures/mybutton1_2.jpg","/pictures/mybutton1_3.jpg","注册");
 		register.setHorizontalTextPosition(SwingConstants.CENTER);
 		register.setSize(128, 49);
 		register.setLocation(560, 300);

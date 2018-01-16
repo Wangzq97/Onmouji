@@ -49,7 +49,8 @@ public class ui extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
 
-        ImageIcon icon=new ImageIcon("pictures\\icon.jpg"); //图标
+        java.net.URL iconURL = this.getClass().getResource("/pictures/icon.jpg");
+        ImageIcon icon=new ImageIcon(iconURL); //图标
         this.setIconImage(icon.getImage());
 
         this.setTitle("Onmyouji");                              //窗体标题显示
@@ -110,7 +111,7 @@ public class ui extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("破碎的符咒")) {
-            if(accountpo.getCommonCharge()<0){
+            if(accountpo.getCommonCharge()<=0){
                 info.setText("剩余次数不足！");
                 return;
             }
@@ -126,7 +127,7 @@ public class ui extends JFrame implements ActionListener {
         }
 
         if(e.getActionCommand().equals("神秘的符咒")){
-            if(accountpo.getSpecialCharge()<0){
+            if(accountpo.getSpecialCharge()<=0){
                 info.setText("剩余次数不足！");
                 return;
             }
